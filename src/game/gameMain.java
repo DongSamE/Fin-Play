@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class gameMain {
 
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		// 게임시작 인트로
 		System.out.println("=====================모의투자게임======================");
 		System.out.println("             [1] 게임 시작");

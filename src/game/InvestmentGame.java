@@ -3,8 +3,6 @@ package game;
 import java.util.Random;
 import java.util.Scanner;
 
-import bank.FinService;
-
 import java.util.Arrays;
 
 public class InvestmentGame {
