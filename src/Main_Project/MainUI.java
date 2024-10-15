@@ -2,14 +2,15 @@ package Main_Project;
 
 import java.util.Scanner;
 
-import fin.FinService;
+import bank.FinService;
 import game.InvestmentGame;
+import game.gameMain;
 
 public class MainUI {
 
-	String 계좌번호;
-	int 잔액;
-	String 예금주;
+	String user_id;
+	String user_pw;
+	String name;
 
 	public static void main(String[] args) {
 
@@ -21,17 +22,27 @@ public class MainUI {
 			System.out.println("======================================================");
 			System.out.println("             핀테크와 게임을 한번에  FinPlay");
 			System.out.println("======================================================");
+			
+			
+			
+			
+			//로그인 회원가입 종료
+			
+			
+			
+			
+			
 			System.out.println("  [1] 계좌관리         [2] 모의투자게임           [3] 종료");
 
 			int input = sc.nextInt();
 			switch (input) {
 			case 1:
-				FinService finService = new FinService();
-				finService.showFinMenu(); // Starts FinService features
+				FinService fm = new FinService();
+				
 				break;
 			case 2:
-				InvestmentGame gameService = new InvestmentGame();
-				gameService.startGame(); // Starts InvestmentGame features
+				gameMain gm = new gameMain();
+				gm.main(null);
 				break;
 			case 3:
 				running = false; // Ends the loop

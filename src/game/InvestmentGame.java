@@ -2,23 +2,17 @@ package game;
 
 import java.util.Random;
 import java.util.Scanner;
+
+import bank.FinService;
+
 import java.util.Arrays;
 
-import fin.FinService;
-
 public class InvestmentGame {
-
-	// 콘솔 클리어
-	public static void clearConsole() {
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
-	}
-
+	gameMain gm = new gameMain();
 	// 원금 일천만원
 	int money = 10000000;
 	// 보유 주식 어레이
 	int[] stocks = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
 	String[] stockName = { "퍼스트솔라", "아마존", "화이자", "엔비디아", "메타", "테슬라", "페이팔", "스페이스X", "알파벳", "크라우드스트라이크" };
 	/*
 	 * 종목명과 ID 1.에너지 : 퍼스트솔라(재생에너지) 2.전자상거래플랫폼:아마존(전자상거래플랫폼) 3.바이오:화이자(바이오)
@@ -59,35 +53,11 @@ public class InvestmentGame {
 	String[][] preNews = new String[15][4];
 	Random random = new Random();
 
-	// 게임시작 인트로
-	public void startGame() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("=====================모의투자게임======================");
-		System.out.println("             [1] 게임 시작");
-		System.out.println("             [2] 스코어보드 확인");
-		System.out.println("             [3] 메인메뉴로 돌아가기");
-		int choice = sc.nextInt();
-		clearConsole();
-		switch (choice) {
-		case 1:
-			newGame();
-			break;
-		case 2:
-			top3();
-			break;
-		case 3:
-			System.out.println("...메인베뉴로 돌아갑니다...");
-
-			break;
-		default:
-			System.out.println("올바른 메뉴를 선택해주세요");
-			startGame();
-		}
-	}
+	
 
 	// 게임진행
-	private void newGame() {
-		System.err.println("모의투자 게임을 시작합니다");
+	void newGame() {
+		System.out.println("모의투자 게임을 시작합니다");
 		Scanner sc = new Scanner(System.in);
 
 		// 턴 및 게임진행
@@ -105,7 +75,7 @@ public class InvestmentGame {
 				System.out.println("======================================================");
 
 				// 매 턴 뉴스선정및 뉴스 어레이에 반영.
-				System.err.println("금주의 뉴스!");
+				System.out.println("금주의 뉴스!");
 				int rn = random.nextInt(news.length) + 1;
 				// preNews안에 rn이 없을경우에 news[0][rn]뉴스가 금주의 뉴스로 선정
 				// previous[turn]에 rn이 저장되고 턴이 진행됨에 따라 previous[turn]에 없는 rn이 나와야만함.for 문에 if문 잘
@@ -134,8 +104,8 @@ public class InvestmentGame {
 
 				// 선택된 뉴스 출력
 				System.out.println(preNews[turn][2]);
-				System.err.println((turn + 1) + "번쨰 턴");
 				System.out.println("======================================================");
+				System.out.println((turn + 1) + "번쨰 턴");
 				System.out.println("현재 보유 주식 \n" + Arrays.toString(stocks));
 				System.out.println("현재 보유 현금 : " + money);
 				// 현재 평가금
@@ -271,8 +241,7 @@ public class InvestmentGame {
 				// 턴 종료 및 종가반영
 				case "3":
 					// 종가반영
-					// 0~9까지 if != rn걸어서 이번에 뉴스나온 주식 아니면, 0~5퍼 난수 가격증감
-					// or double난수 0.95~1.05 곱하고 다시 int화 하는법이 있음.
+					// double난수 0.95~1.05 곱하고 다시 int화 하는법이 있음.
 					int stockIndex = Integer.parseInt(preNews[turn][1]) - 1; // 인덱스는 0부터 시작하므로 -1을 함
 					int current_news_stock_price = price[stockIndex][1];
 					double newsranfac = 1 + (Math.random() * 0.04);
@@ -312,25 +281,14 @@ public class InvestmentGame {
 					break;
 				}
 			}
-
 		}
-
 		// Top3 달성여부 조회 및 알림
 		checktop3(totalmoney(price, stocks, money));
-		// 게임 종료 후 InvestGame의 Main UI로 이동
-		startGame();
-
+		gm.main(null);
 	}
 
 	// 스코어보드
-	private void top3() {
-
-		System.out.println("스코어보드" + "\n======================================================");
-		for (int i = 0; i < highScore.length; i++) {
-			System.out.println((i + 1) + ". " + highScore[i]);
-		}
-		startGame();
-	}
+	// DB 연결해서 top 3뽑고 비교해야함.
 
 	private void checktop3(int a) {
 		for (int i = 0; i < highScore.length; i++) {
