@@ -26,11 +26,6 @@ public class mainDAO {
 			String user = "seocho_dcx_bigdata14_p1_3";
 			String password = "smhrd3";
 			Connection conn = DriverManager.getConnection(url, user, password);
-			if (conn != null) {
-				System.out.println("DB 연결 성공 !");
-			} else {
-				System.out.println("DB 연결 실패 ~");
-			}
 
 			String sql = "INSERT INTO BANKUSER VALUES(?,?,?)";
 
@@ -59,11 +54,6 @@ public class mainDAO {
 			String user = "seocho_dcx_bigdata14_p1_3";
 			String password = "smhrd3";
 			Connection conn = DriverManager.getConnection(url, user, password);
-			if (conn != null) {
-				System.out.println("DB 연결 성공 !");
-			} else {
-				System.out.println("DB 연결 실패 ~");
-			}
 			// 여기부터는 내가 짜야함
 			String sql = "SELECT * FROM BANKUSER WHERE USER_ID=? AND USER_PW=? ";
 			PreparedStatement psmt = conn.prepareStatement(sql);
@@ -74,19 +64,8 @@ public class mainDAO {
 			ResultSet rs = psmt.executeQuery();
 
 			if (rs.next()) {
-				System.out.println(rs.getString("NAME") + " 님 환영합니다");
 				result = 1;
-
-			} else {
-				System.out.println("존재하는 회원 정보가 없습니다");
 			}
-			while (rs.next()) {
-				String PrintID = rs.getString("USER_ID");
-				String PrintPW = rs.getString("USER_PW");
-				String name = rs.getString("NAME");
-				System.out.println(PrintID + "\t" + PrintPW + "\t" + name + "\t");
-			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,8 +76,6 @@ public class mainDAO {
 	// 3. 비밀번호 변경 메소드
 	public int edit(mainDTO dto) {
 		int result = 0;
-		Scanner sc = new Scanner(System.in);
-		String new_pw = sc.next();
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -106,35 +83,18 @@ public class mainDAO {
 			String user = "seocho_dcx_bigdata14_p1_3";
 			String password = "smhrd3";
 			Connection conn = DriverManager.getConnection(url, user, password);
-			if (conn != null) {
-				System.out.println("DB 연결 성공 !");
-			} else {
-				System.out.println("DB 연결 실패 ~");
-			}
 			// 여기부터는 내가 짜야함
-			String sql = "UPDATE BANKUSER SET USER_PW = ? WHERE USER_ID = ? AND USER_PW = ?";
+			String sql = "UPDATE BANKUSER SET USER_PW = ? WHERE USER_ID = ?";
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, new_pw);
+			psmt.setString(1, dto.getPw());
 			psmt.setString(2, dto.getId());
-			psmt.setString(3, dto.getPw());
 
 			ResultSet rs = psmt.executeQuery();
 
 			if (rs.next()) {
-				System.out.println(rs.getString("NAME") + " 님 환영합니다");
-				result = 1;
-
-			} else {
-				System.out.println("존재하는 회원 정보가 없습니다");
-			}
-			while (rs.next()) {
-				String PrintID = rs.getString("USER_ID");
-				String PrintPW = rs.getString("USER_PW");
-				String name = rs.getString("NAME");
-				System.out.println(PrintID + "\t" + PrintPW + "\t" + name + "\t");
-			}
-
+	            result = 1;
+	         }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -152,11 +112,6 @@ public class mainDAO {
 			String user = "seocho_dcx_bigdata14_p1_3";
 			String password = "smhrd3";
 			Connection conn = DriverManager.getConnection(url, user, password);
-			if (conn != null) {
-				System.out.println("DB 연결 성공 !");
-			} else {
-				System.out.println("DB 연결 실패 ~");
-			}
 			// 여기부터는 내가 짜야함
 			String sql = "DELETE FROM BANKUSER WHERE USER_ID = ? AND USER_PW = ? ";
 			PreparedStatement psmt = conn.prepareStatement(sql);
@@ -167,17 +122,7 @@ public class mainDAO {
 			ResultSet rs = psmt.executeQuery();
 
 			if (rs.next()) {
-				System.out.println(rs.getString("NAME") + " 님 환영합니다");
 				result = 1;
-
-			} else {
-				System.out.println("존재하는 회원 정보가 없습니다");
-			}
-			while (rs.next()) {
-				String PrintID = rs.getString("USER_ID");
-				String PrintPW = rs.getString("USER_PW");
-				String name = rs.getString("NAME");
-				System.out.println(PrintID + "\t" + PrintPW + "\t" + name + "\t");
 			}
 
 		} catch (Exception e) {

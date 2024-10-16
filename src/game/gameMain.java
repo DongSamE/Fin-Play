@@ -2,9 +2,12 @@ package game;
 
 import java.util.Scanner;
 
+import Main_Project.mainUtil;
+import a_Model.mainDTO;
+
 public class gameMain {
 
-	public void main(String[] args) {
+	public void main(mainDTO login_info) {
 		// 게임시작 인트로
 		System.out.println("=====================모의투자게임======================");
 		System.out.println("             [1] 게임 시작");
@@ -15,18 +18,18 @@ public class gameMain {
 		
 		Scanner sc = new Scanner(System.in);
 		int choice  = 0;
-		boolean con = true ;
 		//유저 선택
 		
-		while(con) {
+		while(true) {
 			choice = sc.nextInt();
 			if(choice == 1) {
-				ig.newGame();
+				ig.newGame(login_info);
 			}else if(choice == 2) {
-				
+				//스코어보드 짜기
+				ig.checktop3(login_info);
 			}else if(choice == 3) {
 				System.out.println("...메인베뉴로 돌아갑니다...");
-				con=false;
+				mainUtil.menu(login_info);
 			}else {
 				System.out.println("올바른 메뉴를 선택해주세요");
 			}

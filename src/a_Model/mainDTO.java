@@ -5,7 +5,7 @@ public class mainDTO {
 			// DTO: Data Transfer Object
 			// ->  데이터를 가져오거나(getter), 변경하기(setter)
 			
-			// 1.필드 -> 아이디, 비번, 이름, 나이(private)
+			// 1.필드 -> 아이디, 비번, 이름
 			private String name;
 			private String id;
 			private String pw;

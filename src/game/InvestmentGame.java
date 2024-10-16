@@ -3,6 +3,11 @@ package game;
 import java.util.Random;
 import java.util.Scanner;
 
+import a_Controller.gameDAO;
+import a_Controller.mainDAO;
+import a_Model.gameDTO;
+import a_Model.mainDTO;
+
 import java.util.Arrays;
 
 public class InvestmentGame {
@@ -17,7 +22,6 @@ public class InvestmentGame {
 	 * 4.반도체:엔비디아(반도체) 5.메타버스:메타(메타버스) 6.전기차:테슬라(전기차) 7.핀테크:페이팔(핀테크) 8.우주:스페이스X(우주)
 	 * 9.AI : 알파벳(AI) 10. 사이버보안: 크라우드스트라이크(보안)
 	 */
-	int[] highScore = { 0, 0, 0 };
 	// 주가 24-10-07 현재가
 	int[][] price = { { 1, 311455 }, { 2, 251328 }, { 3, 38512 }, { 4, 168334 }, { 5, 803049 }, { 6, 336991 },
 			{ 7, 106940 }, { 8, 269506 }, { 9, 227140 }, { 10, 393803 } };
@@ -51,10 +55,9 @@ public class InvestmentGame {
 	String[][] preNews = new String[15][4];
 	Random random = new Random();
 
-	
-
 	// 게임진행
-	void newGame() {
+	void newGame(mainDTO login_info) {
+		gameDTO gdto = new gameDTO(login_info);
 		System.out.println("모의투자 게임을 시작합니다");
 		Scanner sc = new Scanner(System.in);
 
@@ -66,11 +69,11 @@ public class InvestmentGame {
 
 			// 의사결정 (구매, 현재 평가금 조회, 턴종료, 게임종료)
 			while (true) {
-				System.out.println("======================================================");
+				System.out.println("───────────────────────────────────────────────────────────");
 				for (int i = 0; i < stockName.length; i++) {
 					System.out.println((i + 1) + ". " + stockName[i] + " :" + price[i][1]);
 				}
-				System.out.println("======================================================");
+				System.out.println("───────────────────────────────────────────────────────────");
 
 				// 매 턴 뉴스선정및 뉴스 어레이에 반영.
 				System.out.println("금주의 뉴스!");
@@ -102,7 +105,7 @@ public class InvestmentGame {
 
 				// 선택된 뉴스 출력
 				System.out.println(preNews[turn][2]);
-				System.out.println("======================================================");
+				System.out.println("───────────────────────────────────────────────────────────");
 				System.out.println((turn + 1) + "번쨰 턴");
 				System.out.println("현재 보유 주식 \n" + Arrays.toString(stocks));
 				System.out.println("현재 보유 현금 : " + money);
@@ -114,7 +117,7 @@ public class InvestmentGame {
 				switch (input) {
 				// 구매과정
 				case "1":
-					System.out.println("======================================================");
+					System.out.println("───────────────────────────────────────────────────────────");
 					System.out.println("현재 구매 가능 갯수");
 					// 구매 가능한 주식이 있는지 확인하는 변수
 					boolean canBuyAnyStock = false;
@@ -177,7 +180,7 @@ public class InvestmentGame {
 					break; // case 1을 끝내고 외부 while 반복문으로 돌아감
 				// 판매
 				case "2":
-					System.out.println("======================================================");
+					System.out.println("───────────────────────────────────────────────────────────");
 					System.out.println("현재 판매 가능 갯수");
 					System.out.println(Arrays.toString(stocks));
 					// 판매 가능한 주식이 없는 경우 턴 종료
@@ -266,6 +269,7 @@ public class InvestmentGame {
 				// 게임종료
 				case "4":
 					System.out.println("게임을 종료합니다.");
+					System.out.println("스코어보드를 확인해주세요!");
 					ingame = false;
 					break;
 
@@ -280,26 +284,9 @@ public class InvestmentGame {
 				}
 			}
 		}
-		// Top3 달성여부 조회 및 알림
-		checktop3(totalmoney(price, stocks, money));
-		gm.main(null);
-	}
-
-	// 스코어보드
-	// DB 연결해서 top 3뽑고 비교해야함.
-
-	private void checktop3(int a) {
-		for (int i = 0; i < highScore.length; i++) {
-			if (highScore[i] < a) {
-				highScore[i] = a;
-				System.out.println("TOP3 달성에 성공!");
-				break;
-			} else {
-				System.out.println("TOP3 달성에 실패하셨습니다!");
-				break;
-			}
-		}
-
+		//점수 등록 후 종료
+		enroll(gdto, totalmoney(price, stocks, money));
+		gm.main(login_info);
 	}
 
 	private static int totalmoney(int[][] price, int[] stock, int money) {
@@ -309,4 +296,21 @@ public class InvestmentGame {
 		}
 		return money;
 	}
+
+	// 스코어보드
+	// DB 연결해서 top 3뽑고 비교해야함.
+	private void enroll(gameDTO gdto, int tmoney) {
+
+		gameDAO dao = new gameDAO();
+		dao.enroll(gdto, tmoney);
+
+	}
+
+	public void checktop3(mainDTO login_info) {
+
+		gameDAO dao = new gameDAO();
+		dao.checktop3();
+		gm.main(login_info);
+	}
+
 }
