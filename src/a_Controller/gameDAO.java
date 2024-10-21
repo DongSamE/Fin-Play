@@ -14,7 +14,7 @@ public class gameDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = ";
+			String url = "";
 			String user = "";
 			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
@@ -38,7 +38,7 @@ public class gameDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = ";
+			String url = "";
 			String user = "";
 			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
