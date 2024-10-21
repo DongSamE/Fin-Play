@@ -15,9 +15,9 @@ public class bankDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
 			// 여기부터는 내가 짜야함
@@ -47,9 +47,9 @@ public class bankDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
 			// 여기부터는 내가 짜야함
@@ -76,9 +76,9 @@ public class bankDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
 			// 여기부터는 내가 짜야함
@@ -102,9 +102,9 @@ public class bankDAO {
 		int result = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 
 			Connection conn = DriverManager.getConnection(url, user, password);
 
@@ -129,9 +129,9 @@ public class bankDAO {
 		int result = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 
 			Connection conn = DriverManager.getConnection(url, user, password);
 
@@ -158,9 +158,9 @@ public class bankDAO {
 		int returnValue = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 
 			Connection conn = DriverManager.getConnection(url, user, password);
 
@@ -191,9 +191,9 @@ public class bankDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
 			// 여기부터는 내가 짜야함
@@ -220,9 +220,9 @@ public class bankDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
 			String sql = "SELECT BNAME, BNUM FROM BANKACC WHERE USER_ID = ?";
