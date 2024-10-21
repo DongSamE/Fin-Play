@@ -14,9 +14,9 @@ public class gameDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
 			String sql = "INSERT INTO TOP3 (USER_ID, SCORE) VALUES (?,?)";
@@ -38,9 +38,9 @@ public class gameDAO {
 		try {
 			// 1. DB 드라이버 꺼내기 // 2. DB랑 자바연결 // 3. 쿼리문 작성
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@project-db-campus.smhrd.com:1523:xe";
-			String user = "seocho_dcx_bigdata14_p1_3";
-			String password = "smhrd3";
+			String url = ";
+			String user = "";
+			String password = "";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
 			String sql = "SELECT ROWNUM, USER_ID, SCORE, DT FROM (" + "SELECT USER_ID, SCORE, DT " + "FROM TOP3 "
