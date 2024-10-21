@@ -8,7 +8,32 @@ import bank.bankMain;
 import game.gameMain;
 
 public class mainUtil {
+	// 로그인 메소드
+	public static void login() {
+		// 1. 로그인
+		Scanner sc = new Scanner(System.in);
+		System.out.println("───────────────────────────────────────────────────────────");
+		System.out.println("[1] 로그인");
+		// - 사용자에게 아이디, 패스워드만 받기
+		System.out.print("ID를 입력하세요 >>");
+		String id = sc.next();
+		System.out.print("PW를 입력하세요 >>");
+		String pw = sc.next();
+		// dao, dto 객체 생성
+		mainDTO dto = new mainDTO(id, pw);
+		mainDAO dao = new mainDAO();
 
+		int result = dao.login(dto);
+
+		if (result > 0) {
+			menu(dto);
+		} else {
+			System.out.println("로그인 실패~");
+		}
+
+	}
+
+	// 로그인 후에 나타나는 화면 UI
 	public static void menu(mainDTO login_info) {
 		Scanner sc = new Scanner(System.in);
 		boolean running = true;
@@ -35,32 +60,8 @@ public class mainUtil {
 		}
 	}
 
-	public static void login() {
-		// 1. 로그인
-		Scanner sc = new Scanner(System.in);
-		System.out.println("───────────────────────────────────────────────────────────");
-		System.out.println("[1] 로그인");
-		// - 사용자에게 아이디, 패스워드만 받기
-		System.out.print("ID를 입력하세요 >>");
-		String id = sc.next();
-		System.out.print("PW를 입력하세요 >>");
-		String pw = sc.next();
-		// dao, dto 객체 생성
-		mainDTO dto = new mainDTO(id, pw);
-		mainDAO dao = new mainDAO();
-
-		int result = dao.login(dto);
-
-		if (result > 0) {
-			menu(dto);
-		} else {
-			System.out.println("로그인 실패~");
-		}
-
-	}
-
+	// 회원가입 메소드
 	public static void join() {
-		// 2. 회원가입
 		// - name, id, pw 를 입력받아서 변수 저장
 		Scanner sc = new Scanner(System.in);
 		System.out.println("[2] 회원가입");
@@ -79,7 +80,6 @@ public class mainUtil {
 		// DAO 기능 사용하기 위해 객체 생성
 		mainDAO dao = new mainDAO();
 
-		// 성공 여부 확인 위해 join의 리턴값에 저장
 		int result = dao.join(dto);
 
 		if (result > 0) {
@@ -90,6 +90,7 @@ public class mainUtil {
 
 	}
 
+	// 마이페이지 UI 메소드
 	public static void mypage(mainDTO login_info) {
 		System.out.println("───────────────────────────────────────────────────────────");
 		System.out.println("[1] 비밀번호변경 [2] 회원탈퇴");
@@ -103,9 +104,9 @@ public class mainUtil {
 		}
 	}
 
+	// 비밀번호 변경 메소드
 	public static void edit(mainDTO login_info) {
-		// 1. 비밀번호 변경
-		// - name, id, pw 를 입력받아서 변수 저장
+		// 변경할 비밀번호 설정
 		Scanner sc = new Scanner(System.in);
 		System.out.println("[1] 비밀번호 변경");
 
@@ -117,13 +118,14 @@ public class mainUtil {
 		// DAO 기능 사용하기 위해 객체 생성
 		mainDAO dao = new mainDAO();
 		String id = login_info.getId();
-		// 성공 여부 확인 위해 join의 리턴값에 저장
 
+		// 입력된 비밀번호가 동일하다면 해당 비밀번호로 변경
 		if (pw.equals(pw_check)) {
 			mainDTO dto = new mainDTO(id, pw);
 			int result = dao.edit(dto);
 			if (result > 0) {
 				System.out.println("비밀번호가 변경되었습니다");
+				MainUI.main(null);
 			} else {
 				System.out.println("비밀번호 변경에 실패했습니다");
 			}
@@ -133,22 +135,20 @@ public class mainUtil {
 
 	}
 
+	// 회원탈퇴 메소드
 	public static void delete(mainDTO login_info) {
-		// 2. 회원탈퇴
+
 		int result;
-		// - id, pw 를 입력받아서 변수 저장
+		// 삭제 의사 질의
 		Scanner sc = new Scanner(System.in);
 		System.out.println("[2] 회원탈퇴");
 
 		System.out.print("탈퇴하시겠습니까? [ Y / N ] ");
 		String choice = sc.next();
 
-		// 회원가입에 필요한 정보를 받았으니
-		// DTO에 정보를 채우기
-
-		// DAO 기능 사용하기 위해 객체 생성
+		// DAO호출 후 ID삭제
 		mainDAO dao = new mainDAO();
-		if (choice.equals(choice)) {
+		if (choice.equals("Y")) {
 			result = dao.delete(login_info);
 		} else {
 			result = 0;

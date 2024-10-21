@@ -6,7 +6,7 @@ import a_Model.bankDTO;
 import a_Model.mainDTO;
 
 public class bankMain {
-
+	//뱅킹서비스 메인 메소드
    public void main(mainDTO dto) {
       bankDTO bdto = new bankDTO(dto);
       Scanner sc = new Scanner(System.in);

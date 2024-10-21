@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import a_Model.gameDTO;
 
 public class gameDAO {
+	
 	public int enroll(gameDTO gdto, int tmoney) {
 		int result = 0;
 		try {
@@ -42,24 +43,21 @@ public class gameDAO {
 			String password = "smhrd3";
 			Connection conn = DriverManager.getConnection(url, user, password);
 
-			 String sql = "SELECT ROWNUM, USER_ID, SCORE, DT FROM ("
-	                   + "SELECT USER_ID, SCORE, DT "
-	                   + "FROM TOP3 "
-	                   + "ORDER BY SCORE DESC"
-	                   + ") WHERE ROWNUM <= 3";
-			 
+			String sql = "SELECT ROWNUM, USER_ID, SCORE, DT FROM (" + "SELECT USER_ID, SCORE, DT " + "FROM TOP3 "
+					+ "ORDER BY SCORE DESC" + ") WHERE ROWNUM <= 3";
+
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			ResultSet rs = psmt.executeQuery();
-			if(rs != null) {
-				while(rs.next()) {
+			if (rs != null) {
+				while (rs.next()) {
 					int rn = rs.getInt("ROWNUM");
 					String id = rs.getString("USER_ID");
 					int score = rs.getInt("SCORE");
 					String dt = rs.getString("DT");
-					System.out.println(rn +"\t" +id + "\t" + score + "\t"+ dt);
+					System.out.println(rn + "\t" + id + "\t" + score + "\t" + dt);
 				}
-			}else {
-				
+			} else {
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

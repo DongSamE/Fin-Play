@@ -55,7 +55,7 @@ public class InvestmentGame {
 	String[][] preNews = new String[15][4];
 	Random random = new Random();
 
-	// 게임진행
+	// 게임진행 메소드
 	void newGame(mainDTO login_info) {
 		gameDTO gdto = new gameDTO(login_info);
 		System.out.println("모의투자 게임을 시작합니다");
@@ -141,32 +141,24 @@ public class InvestmentGame {
 					for (int i = 0; i < stockName.length; i++) {
 						System.out.println(stockName[i] + " " + (money / price[i][1]) + "개");
 					}
+					
 					while (true) {
 						System.out.println("어떤 주식을 구매하시겠습니까? :");
 						String 구매 = sc.next();
 						boolean validStock = false;
-
+						//구매할 주식 확인
 						for (int i = 0; i < stockName.length; i++) {
 							if (stockName[i].equals(구매)) {
 								validStock = true;
 								System.out.println("몇 주 구매하시겠습니까? :");
+								//매입량 설정
 								int 매입량 = sc.nextInt();
-								// 구매 성공 및 현재 평가금 보유 자산 출력 (구매 로직 추가)
+								// 구매 성공 및 현재 평가금 보유 자산 출력
 								money -= price[i][1] * 매입량;
-								stocks[i] = 매입량;
+								stocks[i] += 매입량;
 								System.out.println("구매에 성공했습니다!");
 								System.out.println("보유 현금 :" + money);
 								System.out.println(Arrays.toString(stocks));
-								System.out.println("구매를 계속 진행할까요? (Y/N):");
-								String 연속의사 = sc.next();
-								if (연속의사.equalsIgnoreCase("Y")) {
-									System.out.println("구매를 계속합니다!");
-								} else if (연속의사.equalsIgnoreCase("N")) {
-									System.out.println("구매를 종료합니다!");
-									break; // 내부 while 루프를 빠져나가며 switch 루프 계속
-								} else {
-									System.out.println("제대로 입력해주세요!");
-								}
 							}
 						}
 
@@ -217,16 +209,6 @@ public class InvestmentGame {
 									System.out.println("판매에 성공했습니다!");
 									System.out.println("보유 현금 :" + money);
 									System.out.println(Arrays.toString(stocks));
-								}
-								System.out.println("판매를 계속 진행할까요? (Y/N):");
-								String 연속의사 = sc.next();
-								if (연속의사.equalsIgnoreCase("Y")) {
-									System.out.println("판매를 계속합니다!");
-								} else if (연속의사.equalsIgnoreCase("N")) {
-									System.out.println("판매를 종료합니다!");
-									break; // 내부 while 루프를 빠져나가며 switch 루프 계속
-								} else {
-									System.out.println("제대로 입력해주세요!");
 								}
 							}
 						}
@@ -288,7 +270,7 @@ public class InvestmentGame {
 		enroll(gdto, totalmoney(price, stocks, money));
 		gm.main(login_info);
 	}
-
+	//현재 평가액 계산 메소드
 	private static int totalmoney(int[][] price, int[] stock, int money) {
 
 		for (int i = 0; i < stock.length; i++) {
@@ -297,15 +279,14 @@ public class InvestmentGame {
 		return money;
 	}
 
-	// 스코어보드
-	// DB 연결해서 top 3뽑고 비교해야함.
+	// 스코어보드 등록 메소드
 	private void enroll(gameDTO gdto, int tmoney) {
 
 		gameDAO dao = new gameDAO();
 		dao.enroll(gdto, tmoney);
 
 	}
-
+	// 스코어보드 TOP3 조회 메소드
 	public void checktop3(mainDTO login_info) {
 
 		gameDAO dao = new gameDAO();

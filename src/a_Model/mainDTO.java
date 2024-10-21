@@ -28,9 +28,11 @@ public class mainDTO {
 			public String getName() {
 				return name;
 			}
+			
 			public String getId() {
 				return id;
 			}
+			
 			public String getPw() {
 				return pw;
 			}

@@ -14,7 +14,7 @@ public class MainUI {
 	private String user_id;
 	private String user_pw;
 	static mainDTO login_info;
-
+	//메인 UI
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
